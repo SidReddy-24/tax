@@ -1,0 +1,577 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(-45deg, 
+        #f0f7ff,
+        #ffffff,
+        #e6f3ff,
+        #f5f9ff
+    );
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    min-height: 100vh;
+    position: relative;
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+/* Logo Styles */
+.logo-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 2rem;
+}
+
+.logo {
+    font-size: 3.5rem;
+    margin-right: 0.5rem;
+    color: #3498db;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    left: -5px;
+    z-index: 1;
+}
+
+.title {
+    font-size: 3rem;
+    color: #2c3e50;
+    font-weight: bold;
+    background: linear-gradient(45deg, #2c3e50, #3498db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-left: -8px;
+}
+
+/* Navigation Styles */
+.menu-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-menu li a {
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-menu li a:hover {
+    color: #3498db;
+}
+
+/* Profile Styles */
+.profile-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #3498db;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.profile-name {
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.dropdown-icon {
+    color: #2c3e50;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* Home Page Styles */
+.main-container {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.tagline-container {
+    flex: 1;
+    text-align: left;
+    padding: 2rem;
+    background: transparent;
+    margin-bottom: 0;
+}
+
+.main-tagline {
+    font-size: 3.5rem;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(45deg, #2c3e50, #3498db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeInUp 0.8s ease-out;
+    line-height: 1.2;
+}
+
+.sub-tagline {
+    font-size: 1.4rem;
+    color: #666;
+    line-height: 1.6;
+    animation: fadeInUp 1s ease-out 0.2s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+    max-width: 500px;
+}
+
+.content-box {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    transform-origin: center;
+    cursor: pointer;
+    text-align: center;
+}
+
+@media (max-width: 1024px) {
+    .main-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .tagline-container {
+        text-align: center;
+    }
+
+    .sub-tagline {
+        margin: 0 auto;
+    }
+
+    .main-tagline {
+        font-size: 2.8rem;
+    }
+}
+
+.tax-illustration {
+    width: 400px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.tax-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 0.5rem;
+    background: linear-gradient(45deg, #2c3e50, #3498db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.3px;
+}
+
+/* Tax Filing Page Styles */
+.tax-filing-container {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    min-height: calc(100vh - 80px);
+}
+
+.tax-filing-content {
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+}
+
+.page-title {
+    font-size: 3rem;
+    margin: 2rem 0;
+    text-align: center;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.tax-filing-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6rem;
+    margin: 4rem 0;
+    position: relative;
+    padding: 2rem;
+}
+
+/* Update the wire animation */
+.tax-filing-grid::before {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 100vh;
+    background: linear-gradient(180deg, 
+        transparent,
+        rgba(52, 152, 219, 0.2),
+        rgba(52, 152, 219, 0.3),
+        rgba(52, 152, 219, 0.2),
+        transparent
+    );
+    transform: translateX(-50%);
+    z-index: 1;
+    box-shadow: 
+        0 0 10px rgba(52, 152, 219, 0.1),
+        0 0 20px rgba(52, 152, 219, 0.1);
+}
+
+.tax-filing-card {
+    min-height: auto;
+    width: 700px;
+    padding: 3rem;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 8px 32px rgba(31, 38, 135, 0.15),
+        inset 0 0 32px rgba(31, 38, 135, 0.05);
+    border-radius: 20px;
+    text-align: center;
+    opacity: 0;
+    transform: translateX(-100px);
+    position: relative;
+    z-index: 2;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Update the connecting dots */
+.tax-filing-card::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -15px;
+    width: 30px;
+    height: 30px;
+    background: #3498db;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    box-shadow: 
+        0 0 0 5px rgba(52, 152, 219, 0.3),
+        0 0 15px rgba(52, 152, 219, 0.5),
+        0 0 30px rgba(52, 152, 219, 0.2);
+    z-index: 2;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Add active states for scroll animation */
+.tax-filing-card.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.tax-filing-card.active::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Update pulse animation */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.6);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(52, 152, 219, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(52, 152, 219, 0);
+    }
+}
+
+.tax-filing-card.active::before {
+    animation: pulse 2s infinite;
+}
+
+/* Add alternating card positions */
+.tax-filing-card:nth-child(even) {
+    transform: translateX(100px);
+}
+
+.tax-filing-card:nth-child(even)::before {
+    left: auto;
+    right: -15px;
+}
+
+.tax-filing-card:nth-child(even).active {
+    transform: translateX(0);
+}
+
+/* Add smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Update animation for bigger elements */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Add these new decorative styles */
+
+/* Background pattern overlay */
+body::before {
+    display: none;
+}
+
+/* Enhanced card styles */
+.tax-filing-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 8px 32px rgba(31, 38, 135, 0.15),
+        inset 0 0 32px rgba(31, 38, 135, 0.05);
+}
+
+/* Glowing effect for card icons */
+.card-icon {
+    position: relative;
+    display: inline-block;
+    padding: 1.5rem;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #3498db, #2980b9);
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.card-icon::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: inherit;
+    border-radius: 50%;
+    filter: blur(8px);
+    opacity: 0.7;
+    z-index: -1;
+}
+
+/* Enhanced connecting wire */
+.tax-filing-grid::before {
+    background: linear-gradient(180deg, 
+        transparent,
+        rgba(52, 152, 219, 0.2),
+        rgba(52, 152, 219, 0.3),
+        rgba(52, 152, 219, 0.2),
+        transparent
+    );
+    box-shadow: 
+        0 0 10px rgba(52, 152, 219, 0.1),
+        0 0 20px rgba(52, 152, 219, 0.1);
+}
+
+/* Decorative corner elements for cards */
+.tax-filing-card::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    border-top: 3px solid #3498db;
+    border-right: 3px solid #3498db;
+    opacity: 0.5;
+}
+
+.tax-filing-card::before {
+    box-shadow: 
+        0 0 0 5px rgba(52, 152, 219, 0.3),
+        0 0 15px rgba(52, 152, 219, 0.5),
+        0 0 30px rgba(52, 152, 219, 0.2);
+}
+
+/* Enhanced title styles */
+.page-title {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+    padding: 0 2rem;
+}
+
+.page-title::before,
+.page-title::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #3498db, transparent);
+}
+
+.page-title::before {
+    left: -60px;
+}
+
+.page-title::after {
+    right: -60px;
+}
+
+/* Card hover effects */
+.tax-filing-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 
+        0 15px 40px rgba(31, 38, 135, 0.2),
+        inset 0 0 32px rgba(31, 38, 135, 0.05);
+}
+
+.tax-filing-card:hover .card-icon {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+/* Card title enhancement */
+.card-title {
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.card-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #3498db, transparent);
+}
+
+/* Add button styles */
+.card-button {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    margin-top: 1.5rem;
+    background: linear-gradient(45deg, #3498db, #2980b9);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+}
+
+.card-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+    background: linear-gradient(45deg, #2980b9, #3498db);
+}
+
+.card-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+} 

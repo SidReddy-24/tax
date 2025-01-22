@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Tax Return - TaxSarthi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <style>
+        .card-shine {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(
+                45deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.1) 45%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0.1) 55%,
+                transparent 100%
+            );
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .itr-card:hover .card-shine {
+            transform: translateX(100%);
+        }
+
+        .itr-card {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .itr-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .file-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .file-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .file-button:hover::after {
+            transform: translateX(100%);
+        }
+
+        .icon-container {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .icon-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .itr-card:hover .icon-container::before {
+            opacity: 1;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Dark mode styles */
+        .dark body {
+            background: linear-gradient(to bottom right, #1a1c2b, #1e2233, #13151f);
+            color: #f8fafc;
+        }
+
+        .dark .bg-white\/95 {
+            background-color: rgba(30, 34, 51, 0.95);
+        }
+
+        .dark .bg-white\/90 {
+            background-color: rgba(30, 34, 51, 0.9);
+        }
+
+        .dark .text-gray-800 {
+            color: #f8fafc;
+        }
+
+        .dark .text-gray-600 {
+            color: #e2e8f0;
+        }
+
+        .dark .bg-gray-50 {
+            background-color: rgba(30, 34, 51, 0.5);
+        }
+
+        .dark .bg-blue-50 {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+
+        .dark .bg-red-50 {
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        .dark .bg-green-50 {
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+
+        .dark .bg-yellow-50 {
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+
+        .dark .bg-purple-50 {
+            background-color: rgba(139, 92, 246, 0.1);
+        }
+
+        .dark .bg-pink-50 {
+            background-color: rgba(236, 72, 153, 0.1);
+        }
+
+        .dark .bg-teal-50 {
+            background-color: rgba(20, 184, 166, 0.1);
+        }
+
+        .dark .itr-card {
+            background-color: rgba(30, 34, 51, 0.95);
+        }
+
+        .dark .file-button {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Theme toggle button styles */
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-center: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-left: 16px;
+        }
+
+        .light .theme-toggle {
+            background-color: #f3f4f6;
+            color: #4b5563;
+        }
+
+        .dark .theme-toggle {
+            background-color: #374151;
+            color: #e5e7eb;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .theme-toggle i {
+            transition: transform 0.5s ease;
+        }
+
+        .theme-toggle:hover i {
+            animation: spin 1s linear;
+        }
+
+        .dark .info-card {
+            background-color: rgba(30, 34, 51, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dark .info-card h3 {
+            color: #f8fafc;
+        }
+
+        .dark .info-card p {
+            color: #e2e8f0;
+        }
+
+        .dark .gradient-text {
+            background-image: linear-gradient(to right, #f8fafc, #60a5fa, #f8fafc);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-blue-50 to-white min-h-screen overflow-x-hidden">
+    <header class="flex items-center justify-between px-12 py-10 bg-white/90 backdrop-blur-md shadow-lg relative z-10">
+        <div class="flex items-center pl-8">
+            <div class="text-5xl text-blue-500 mr-2 relative -left-5 z-10">₹</div>
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-gray-800 to-blue-500 text-transparent bg-clip-text -ml-2">TaxSarthi</h1>
+        </div>
+        
+        <div class="flex items-center gap-8">
+            <nav>
+                <ul class="flex gap-8">
+                    <li><a href="index.html" class="text-gray-800 hover:text-blue-500 transition-colors font-medium text-lg">Home</a></li>
+                    <li><a href="index.html#services" class="text-gray-800 hover:text-blue-500 transition-colors font-medium text-lg">Services</a></li>
+                    <li><a href="index.html#about" class="text-gray-800 hover:text-blue-500 transition-colors font-medium text-lg">About</a></li>
+                    <li><a href="index.html#contact" class="text-gray-800 hover:text-blue-500 transition-colors font-medium text-lg">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-xl cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span class="font-medium text-gray-800">John Doe</span>
+                <i class="fas fa-chevron-down text-gray-800 text-xl cursor-pointer transition-transform duration-300 hover:rotate-180"></i>
+                <button class="theme-toggle" id="theme-toggle" title="Toggle theme">
+                    <i class="fas fa-sun text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="text-center mb-16">
+            <h1 class="text-5xl font-bold mb-6 bg-gradient-to-r from-gray-800 to-blue-600 text-transparent bg-clip-text">
+                Income Tax Return Filing
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Choose the right ITR form based on your income sources and filing requirements. 
+                Our expert system will guide you through every step.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-12">
+            <!-- ITR-1 -->
+            <div class="itr-card bg-white/95 rounded-3xl p-8 shadow-lg relative">
+                <div class="card-shine"></div>
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="icon-container p-4 bg-blue-50 rounded-2xl">
+                                <i class="fas fa-file-invoice text-4xl text-blue-500 floating-icon"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-3xl font-bold bg-gradient-to-r from-gray-800 to-blue-600 text-transparent bg-clip-text">
+                                    ITR-1 (Sahaj)
+                                </h2>
+                                <p class="text-blue-500 font-medium">Simplified return for individuals</p>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="bg-gray-50 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-user-check text-blue-500"></i>
+                                    Who Should File
+                                </h3>
+                                <p class="text-gray-600 mb-3">Resident individuals with income from:</p>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span>Salary or pension</span>
+                                    </li>
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span>One house property (excluding cases of loss)</span>
+                                    </li>
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span>Other sources (e.g., interest from savings account, fixed deposits)</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-50 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-info-circle text-blue-500"></i>
+                                    Important Information
+                                </h3>
+                                <p class="text-gray-800 font-medium">Income limit: Total income up to ₹50 lakh</p>
+                            </div>
+                            <div class="bg-red-50 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-exclamation-circle text-red-500"></i>
+                                    Not Applicable For
+                                </h3>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-times-circle text-red-500 mt-1"></i>
+                                        <span>Income from business or profession</span>
+                                    </li>
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-times-circle text-red-500 mt-1"></i>
+                                        <span>Income from more than one house property</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-64 flex flex-col justify-center items-center gap-6">
+                        <div class="w-32 h-32 bg-blue-50 rounded-full flex items-center justify-center">
+                            <i class="fas fa-file-invoice text-6xl text-blue-500 floating-icon"></i>
+                        </div>
+                        <button class="file-button w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 flex items-center justify-center gap-2 font-medium">
+                            <span>File Now</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ITR-2 -->
+            <div class="itr-card bg-white/95 rounded-3xl p-8 shadow-lg relative">
+                <div class="card-shine"></div>
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="icon-container p-4 bg-purple-50 rounded-2xl">
+                                <i class="fas fa-file-alt text-4xl text-purple-500 floating-icon"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-3xl font-bold bg-gradient-to-r from-gray-800 to-purple-600 text-transparent bg-clip-text">
+                                    ITR-2
+                                </h2>
+                                <p class="text-purple-500 font-medium">For individuals and HUFs</p>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="bg-gray-50 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-user-check text-blue-500"></i>
+                                    Who Should File
+                                </h3>
+                                <p class="text-gray-600 mb-3">Individuals or Hindu Undivided Families (HUF) with income from:</p>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span>Salary/pension</span>
+                                    </li>
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span>House property (multiple properties)</span>
+                                    </li>
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span>Capital gains (sale of assets like stocks, property)</span>
+                                    </li>
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span>Other sources (interest income, lottery, etc.)</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-50 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-info-circle text-blue-500"></i>
+                                    Important Information
+                                </h3>
+                                <p class="text-gray-800 font-medium">Income limit: No limit, but must be eligible for ITR-2</p>
+                            </div>
+                            <div class="bg-red-50 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-exclamation-circle text-red-500"></i>
+                                    Not Applicable For
+                                </h3>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-times-circle text-red-500 mt-1"></i>
+                                        <span>Income from business or profession</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-64 flex flex-col justify-center items-center gap-6">
+                        <div class="w-32 h-32 bg-purple-50 rounded-full flex items-center justify-center">
+                            <i class="fas fa-file-alt text-6xl text-purple-500 floating-icon"></i>
+                        </div>
+                        <button class="file-button w-full px-8 py-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl hover:from-purple-600 hover:to-purple-700 transition-all duration-300 flex items-center justify-center gap-2 font-medium">
+                            <span>File Now</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ITR-3 -->
+            <div class="itr-card bg-white/95 rounded-3xl p-8 shadow-lg relative">
+                <div class="card-shine"></div>
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="icon-container p-4 bg-green-50 rounded-2xl">
+                                <i class="fas fa-file-invoice text-4xl text-green-500 floating-icon"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-3xl font-bold bg-gradient-to-r from-gray-800 to-green-600 text-transparent bg-clip-text">
+                                    ITR-3
+                                </h2>
+                                <p class="text-green-500 font-medium">For individuals and HUFs</p>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="bg-gray-50 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-user-check text-blue-500"></i>
+                                    Who Should File
+                                </h3>
+                                <p class="text-gray-600 mb-3">Individuals or HUFs with income from:</p>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span>Business or profession</span>
+                                    </li>
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span>Salary/pension</span>
+                                    </li>
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span>House property</span>
+                                    </li>
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span>Capital gains</span>
+                                    </li>
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span>Other sources</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-50 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-info-circle text-blue-500"></i>
+                                    Important Information
+                                </h3>
+                                <p class="text-gray-800 font-medium">Applicable to: Those who need to report income from business, freelance work, or self-employment</p>
+                            </div>
+                            <div class="bg-red-50 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-exclamation-circle text-red-500"></i>
+                                    Not Applicable For
+                                </h3>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-times-circle text-red-500 mt-1"></i>
+                                        <span>Companies or firms</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-64 flex flex-col justify-center items-center gap-6">
+                        <div class="w-32 h-32 bg-green-50 rounded-full flex items-center justify-center">
+                            <i class="fas fa-file-invoice text-6xl text-green-500 floating-icon"></i>
+                        </div>
+                        <button class="file-button w-full px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 flex items-center justify-center gap-2 font-medium">
+                            <span>File Now</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ITR-4 -->
+            <div class="itr-card bg-white/95 rounded-3xl p-8 shadow-lg relative">
+                <div class="card-shine"></div>
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="icon-container p-4 bg-yellow-50 rounded-2xl">
+                                <i class="fas fa-file-invoice text-4xl text-yellow-500 floating-icon"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-3xl font-bold bg-gradient-to-r from-gray-800 to-yellow-600 text-transparent bg-clip-text">
+                                    ITR-4 (Sugam)
+                                </h2>
+                                <p class="text-yellow-500 font-medium">For individuals, HUFs, and firms</p>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="bg-gray-50 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-user-check text-blue-500"></i>
+                                    Who Should File
+                                </h3>
+                                <p class="text-gray-600 mb-3">Individuals, Hindu Undivided Families (HUF), and firms (other than LLP) opting for Presumptive Taxation Scheme under:</p>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span>Section 44AD (business turnover up to ₹2 crore)</span>
+                                    </li>
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span>Section 44ADA (professionals with gross receipts up to ₹50 lakh)</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-50 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-info-circle text-blue-500"></i>
+                                    Important Information
+                                </h3>
+                                <p class="text-gray-800 font-medium">Presumptive income is calculated at 8% (6% for digital receipts)</p>
+                            </div>
+                            <div class="bg-red-50 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-exclamation-circle text-red-500"></i>
+                                    Not Applicable For
+                                </h3>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-times-circle text-red-500 mt-1"></i>
+                                        <span>Income from more than one business or profession</span>
+                                    </li>
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-times-circle text-red-500 mt-1"></i>
+                                        <span>Businesses not opting for presumptive taxation</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-64 flex flex-col justify-center items-center gap-6">
+                        <div class="w-32 h-32 bg-yellow-50 rounded-full flex items-center justify-center">
+                            <i class="fas fa-file-invoice text-6xl text-yellow-500 floating-icon"></i>
+                        </div>
+                        <button class="file-button w-full px-8 py-4 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white rounded-xl hover:from-yellow-600 hover:to-yellow-700 transition-all duration-300 flex items-center justify-center gap-2 font-medium">
+                            <span>File Now</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ITR-5 -->
+            <div class="itr-card bg-white/95 rounded-3xl p-8 shadow-lg relative">
+                <div class="card-shine"></div>
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="icon-container p-4 bg-pink-50 rounded-2xl">
+                                <i class="fas fa-file-invoice text-4xl text-pink-500 floating-icon"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-3xl font-bold bg-gradient-to-r from-gray-800 to-pink-600 text-transparent bg-clip-text">
+                                    ITR-5
+                                </h2>
+                                <p class="text-pink-500 font-medium">For firms, LLPs, AOPs, BOIs, and cooperative societies</p>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="bg-gray-50 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-user-check text-blue-500"></i>
+                                    Who Should File
+                                </h3>
+                                <p class="text-gray-600 mb-3">Firms, LLPs (Limited Liability Partnerships), Association of Persons (AOPs), Body of Individuals (BOIs), Cooperative societies, Other similar entities</p>
+                            </div>
+                            <div class="bg-blue-50 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-info-circle text-blue-500"></i>
+                                    Important Information
+                                </h3>
+                                <p class="text-gray-800 font-medium">Not Applicable For: Individuals or Hindu Undivided Families</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-64 flex flex-col justify-center items-center gap-6">
+                        <div class="w-32 h-32 bg-pink-50 rounded-full flex items-center justify-center">
+                            <i class="fas fa-file-invoice text-6xl text-pink-500 floating-icon"></i>
+                        </div>
+                        <button class="file-button w-full px-8 py-4 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl hover:from-pink-600 hover:to-pink-700 transition-all duration-300 flex items-center justify-center gap-2 font-medium">
+                            <span>File Now</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ITR-6 -->
+            <div class="itr-card bg-white/95 rounded-3xl p-8 shadow-lg relative">
+                <div class="card-shine"></div>
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="icon-container p-4 bg-teal-50 rounded-2xl">
+                                <i class="fas fa-file-invoice text-4xl text-teal-500 floating-icon"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-3xl font-bold bg-gradient-to-r from-gray-800 to-teal-600 text-transparent bg-clip-text">
+                                    ITR-6
+                                </h2>
+                                <p class="text-teal-500 font-medium">For companies (except for those claiming exemption under Section 11 – charitable trusts)</p>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="bg-gray-50 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-user-check text-blue-500"></i>
+                                    Who Should File
+                                </h3>
+                                <p class="text-gray-600 mb-3">Companies (except for those claiming exemption under Section 11 – charitable trusts), Income from business</p>
+                            </div>
+                            <div class="bg-blue-50 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-info-circle text-blue-500"></i>
+                                    Important Information
+                                </h3>
+                                <p class="text-gray-800 font-medium">Not Applicable For: Individuals or firms</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-64 flex flex-col justify-center items-center gap-6">
+                        <div class="w-32 h-32 bg-teal-50 rounded-full flex items-center justify-center">
+                            <i class="fas fa-file-invoice text-6xl text-teal-500 floating-icon"></i>
+                        </div>
+                        <button class="file-button w-full px-8 py-4 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-xl hover:from-teal-600 hover:to-teal-700 transition-all duration-300 flex items-center justify-center gap-2 font-medium">
+                            <span>File Now</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ITR-7 -->
+            <div class="itr-card bg-white/95 rounded-3xl p-8 shadow-lg relative">
+                <div class="card-shine"></div>
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="icon-container p-4 bg-red-50 rounded-2xl">
+                                <i class="fas fa-file-invoice text-4xl text-red-500 floating-icon"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-3xl font-bold bg-gradient-to-r from-gray-800 to-red-600 text-transparent bg-clip-text">
+                                    ITR-7
+                                </h2>
+                                <p class="text-red-500 font-medium">For trusts, political parties, charitable institutions, etc.</p>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="bg-gray-50 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-user-check text-blue-500"></i>
+                                    Who Should File
+                                </h3>
+                                <p class="text-gray-600 mb-3">Trusts, political parties, charitable institutions, etc. that are required to file under:</p>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span>Section 139(4A) – for charitable or religious trusts</span>
+                                    </li>
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span>Section 139(4B) – for political parties</span>
+                                    </li>
+                                    <li class="flex items-start gap-2 text-gray-600">
+                                        <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                        <span>Section 139(4C) – for certain institutions like research organizations, etc.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-50 rounded-xl p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <i class="fas fa-info-circle text-blue-500"></i>
+                                    Important Information
+                                </h3>
+                                <p class="text-gray-800 font-medium">Not Applicable For: Individuals or businesses</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-64 flex flex-col justify-center items-center gap-6">
+                        <div class="w-32 h-32 bg-red-50 rounded-full flex items-center justify-center">
+                            <i class="fas fa-file-invoice text-6xl text-red-500 floating-icon"></i>
+                        </div>
+                        <button class="file-button w-full px-8 py-4 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:from-red-600 hover:to-red-700 transition-all duration-300 flex items-center justify-center gap-2 font-medium">
+                            <span>File Now</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gradient-to-b from-gray-900 to-gray-800 text-white mt-20">
+        <div class="max-w-7xl mx-auto px-8 py-16">
+            <!-- Top Section with Logo and Description -->
+            <div class="text-center mb-12">
+                <div class="flex items-center justify-center mb-4">
+                    <span class="text-4xl text-blue-400 mr-2">₹</span>
+                    <h3 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-blue-200 text-transparent bg-clip-text">TaxSarthi</h3>
+                </div>
+                <p class="text-gray-400 text-base max-w-2xl mx-auto">
+                    Your trusted partner in navigating the complex world of taxation. We make tax filing simple, efficient, and hassle-free.
+                </p>
+            </div>
+
+            <!-- Main Grid Section -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 pb-12 border-b border-gray-700">
+                <!-- Quick Links -->
+                <div class="text-center md:text-left">
+                    <h3 class="text-lg font-semibold mb-6 text-blue-300">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-gray-400 hover:text-blue-400 transition-colors duration-300 flex items-center justify-center md:justify-start">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>Home</a></li>
+                        <li><a href="index.html#about" class="text-gray-400 hover:text-blue-400 transition-colors duration-300 flex items-center justify-center md:justify-start">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>About Us</a></li>
+                        <li><a href="index.html#services" class="text-gray-400 hover:text-blue-400 transition-colors duration-300 flex items-center justify-center md:justify-start">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>Services</a></li>
+                        <li><a href="index.html#contact" class="text-gray-400 hover:text-blue-400 transition-colors duration-300 flex items-center justify-center md:justify-start">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors duration-300 flex items-center justify-center md:justify-start">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>FAQs</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div class="text-center md:text-left">
+                    <h3 class="text-lg font-semibold mb-6 text-blue-300">Our Services</h3>
+                    <ul class="space-y-3">
+                        <li><a href="income-tax.html" class="text-gray-400 hover:text-blue-400 transition-colors duration-300 flex items-center justify-center md:justify-start">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>Income Tax Filing</a></li>
+                        <li><a href="coming-soon.html" class="text-gray-400 hover:text-blue-400 transition-colors duration-300 flex items-center justify-center md:justify-start">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>Tax Planning</a></li>
+                        <li><a href="coming-soon.html" class="text-gray-400 hover:text-blue-400 transition-colors duration-300 flex items-center justify-center md:justify-start">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>GST Filing</a></li>
+                        <li><a href="coming-soon.html" class="text-gray-400 hover:text-blue-400 transition-colors duration-300 flex items-center justify-center md:justify-start">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>Tax Consultation</a></li>
+                        <li><a href="coming-soon.html" class="text-gray-400 hover:text-blue-400 transition-colors duration-300 flex items-center justify-center md:justify-start">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>Business Registration</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="text-center md:text-left">
+                    <h3 class="text-lg font-semibold mb-6 text-blue-300">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-400 justify-center md:justify-start">
+                            <i class="fas fa-map-marker-alt w-8 text-blue-400"></i>
+                            <span>123 Tax Street, Financial District, City</span>
+                        </li>
+                        <li class="flex items-center text-gray-400 justify-center md:justify-start">
+                            <i class="fas fa-phone w-8 text-blue-400"></i>
+                            <span>+91 123-456-7890</span>
+                        </li>
+                        <li class="flex items-center text-gray-400 justify-center md:justify-start">
+                            <i class="fas fa-envelope w-8 text-blue-400"></i>
+                            <span>support@taxsarthi.com</span>
+                        </li>
+                        <li class="flex items-center text-gray-400 justify-center md:justify-start">
+                            <i class="fas fa-clock w-8 text-blue-400"></i>
+                            <span>Mon - Sat: 9:00 AM - 6:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Social Links -->
+            <div class="flex justify-center space-x-6 py-8 border-b border-gray-700">
+                <a href="#" class="w-10 h-10 rounded-full bg-blue-400/10 flex items-center justify-center text-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-300">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-blue-400/10 flex items-center justify-center text-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-300">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-blue-400/10 flex items-center justify-center text-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-300">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-blue-400/10 flex items-center justify-center text-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-300">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="pt-8 text-center text-gray-400 text-sm">
+                <p>&copy; 2024 TaxSarthi. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced scroll animation
+        function handleScrollAnimation() {
+            const cards = document.querySelectorAll('.itr-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                card.style.transition = 'all 0.6s ease-out';
+                observer.observe(card);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', handleScrollAnimation);
+    </script>
+
+    <script>
+        // Theme toggle functionality
+        function initTheme() {
+            const html = document.documentElement;
+            const themeToggle = document.getElementById('theme-toggle');
+            const isDark = localStorage.getItem('theme') === 'dark';
+            
+            if (isDark) {
+                html.classList.add('dark');
+                themeToggle.innerHTML = '<i class="fas fa-moon text-xl"></i>';
+            } else {
+                html.classList.remove('dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun text-xl"></i>';
+            }
+
+            themeToggle.addEventListener('click', () => {
+                html.classList.toggle('dark');
+                const isDarkMode = html.classList.contains('dark');
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                themeToggle.innerHTML = isDarkMode ? 
+                    '<i class="fas fa-moon text-xl"></i>' : 
+                    '<i class="fas fa-sun text-xl"></i>';
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', initTheme);
+    </script>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html> 
